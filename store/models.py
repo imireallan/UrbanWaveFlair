@@ -40,6 +40,11 @@ class Customer(models.Model):
         max_length=1, choices=MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE
     )
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['first_name', 'last_name'])
+        ]
+
 
 class Order(models.Model):
     PENDING = "P"
