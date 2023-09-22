@@ -5,9 +5,16 @@ name = "pypi"
 
 [packages]
 django = "*"
+django-environ = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
+flake8 = "*"
+flake8-isort = "*"
+black = "*"
+pre-commit = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.11"

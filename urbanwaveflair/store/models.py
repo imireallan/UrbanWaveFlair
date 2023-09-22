@@ -1,12 +1,15 @@
 from django.db import models
 
+
 class Promotion(models.Model):
     description = models.CharField(max_length=255)
 
 
 class Collection(models.Model):
     title = models.CharField(max_length=255)
-    featured_product = models.ForeignKey("Product", on_delete=models.SET_NULL, null=True, related_name="+")
+    featured_product = models.ForeignKey(
+        "Product", on_delete=models.SET_NULL, null=True, related_name="+"
+    )
 
 
 class Product(models.Model):
@@ -41,9 +44,7 @@ class Customer(models.Model):
     )
 
     class Meta:
-        indexes = [
-            models.Index(fields=['first_name', 'last_name'])
-        ]
+        indexes = [models.Index(fields=["first_name", "last_name"])]
 
 
 class Order(models.Model):
@@ -70,7 +71,9 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     quantity = models.PositiveSmallIntegerField()
-    unit_price = models.DecimalField(max_digits=6, decimal_places=2) # storing the price of the product at the time it was ordered
+    unit_price = models.DecimalField(
+        max_digits=6, decimal_places=2
+    )  # storing the price of the product at the time it was ordered
 
 
 class Cart(models.Model):
