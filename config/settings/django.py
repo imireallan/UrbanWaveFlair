@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "urbanwaveflair.playground",
     "urbanwaveflair.store",
+    "urbanwaveflair.store_custom",
     "urbanwaveflair.tags",
     "urbanwaveflair.likes",
 ]
