@@ -54,7 +54,7 @@ class Order(models.Model):
 
     PAYMENT_STATUS = [
         (PENDING, "Pending"),
-        (COMPLETE, "Conplete"),
+        (COMPLETE, "Complete"),
         (FAILED, "Failed"),
     ]
 
