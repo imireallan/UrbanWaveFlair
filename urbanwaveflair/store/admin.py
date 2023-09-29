@@ -51,7 +51,6 @@ class CustomerAdmin(admin.ModelAdmin):
     search_fields = ["first_name__istartswith", "last_name__istartswith"]
 
     def orders(self, customer):
-
         url = (
             reverse("admin:store_order_changelist")
             + "?"
