@@ -8,7 +8,14 @@ from django.http.request import HttpRequest
 from django.urls import reverse
 from django.utils.html import format_html
 
-from urbanwaveflair.store.models import Collection, Customer, Order, OrderItem, Product
+from urbanwaveflair.store.models import (
+    Collection,
+    Customer,
+    Order,
+    OrderItem,
+    Product,
+    Review,
+)
 
 
 class InventoryFilter(admin.SimpleListFilter):
@@ -104,3 +111,6 @@ class ProductAdmin(admin.ModelAdmin):
         if product.inventory > 10:
             return "Ok"
         return "Low"
+
+
+admin.site.register(Review)
