@@ -1,22 +1,17 @@
 from django.db.models import Count
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 from urbanwaveflair.store.models import Collection, Product
 from urbanwaveflair.store.serializers import CollectionSerializer, ProductSerializer
 
 
-class ProductList(ListCreateAPIView):
+class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-
-class ProductDetail(RetrieveUpdateDestroyAPIView):
-    serializer_class = ProductSerializer
-    queryset = Product.objects.all()
-
-    def delete(self, request):
+    def destroy(self, request, *args, **kwargs):
         product = self.get_object()
         if product.orderitems.count() > 0:
             return Response(
@@ -25,20 +20,14 @@ class ProductDetail(RetrieveUpdateDestroyAPIView):
                 },
                 status=status.HTTP_405_METHOD_NOT_ALLOWED,
             )
-        product.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return super().destroy(request, *args, **kwargs)
 
 
-class CollectionList(ListCreateAPIView):
+class CollectionViewSet(ModelViewSet):
     queryset = Collection.objects.annotate(products_count=Count("products"))
     serializer_class = CollectionSerializer
 
-
-class CollectionDetail(RetrieveUpdateDestroyAPIView):
-    serializer_class = CollectionSerializer
-    queryset = Collection.objects.annotate(products_count=Count("products"))
-
-    def delete(self, request):
+    def destroy(self, request, *args, **kwargs):
         collection = self.get_object()
         if collection.products.count() > 0:
             return Response(
@@ -47,5 +36,4 @@ class CollectionDetail(RetrieveUpdateDestroyAPIView):
                 },
                 status=status.HTTP_405_METHOD_NOT_ALLOWED,
             )
-        collection.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return super().destroy(request, *args, **kwargs)
