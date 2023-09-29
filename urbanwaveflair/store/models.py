@@ -112,3 +112,10 @@ class Address(models.Model):
     customer = models.OneToOneField(
         Customer, on_delete=models.CASCADE, primary_key=True
     )
+
+
+class Review(models.Model):
+    description = models.TextField()
+    name = models.CharField(max_length=255)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
