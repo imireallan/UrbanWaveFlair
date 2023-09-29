@@ -23,5 +23,6 @@ admin.site.index_title = "Admin"
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("playground/", include("urbanwaveflair.playground.urls")),
+    path("store/", include("urbanwaveflair.store.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
